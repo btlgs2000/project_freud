@@ -1,0 +1,28 @@
+le operazioni che faccio su una password le devo fare anche sulle
+altre e per ognuna arrivo a un vettore
+
+combino i vari vettori
+
+la stessa rete che opera su ciascuno opera anche sull'estraneo
+
+alla fine faccia la distanza euclidea
+
+la rete che combina opera una convoluzione a 5 layer per fare tipo medie
+
+alla fine la stessa rete opera sull'estraneo
+
+##############
+Algoritmo per identificazione
+
+
+###########
+struttura
+MASTER_FOLDER
+    MODEL_FOLDER (dal nome del modello)
+        runs_.......
+        
+        
+Aggiungere precision e recall e fare metriche iperparametri
+Perché non si vede la loss sul test?
+
+dupl

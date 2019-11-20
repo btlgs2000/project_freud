@@ -1,0 +1,52 @@
+Ciao Matteo, 
+ecco le mie risposte qui di seguito: 
+
+1) Le domande fondamentali sono queste
+Non è chiaro se per "sequenze" si intendano le features (colonne) o le osservazioni (righe) 
+Se inteso come osservazioni: 
+ - Numero utenti? 26
+ - Numero di sequenze per ogni utente? 122, 84, 151 (media, min, max)
+ - Numero di sequenze positive per ogni utente? 29, 12, 58 (media, min, max)
+ - Numero di sequenze negative per ogni utente? 93, 70, 107 (media, min, max)
+
+Se inteso come feature, c'è da precisare che ogni sample/osservazione ha un totale di 4 "features", ognuna dei quali è una sequenza di 15 valori (input_ud, du, dd, uu) che può essere usata per l'identificazione. Ogni utente ha una e una sola password digitata tutte le volte, e i fraudster digitano la stessa per simularle una impersonation. Tutte le sequenze dovrebbero contenere esattamente 15 valori. Potrebbero esserci delle eccezioni, ma rare (solo per i negativi), ma mai al di sotto dei 10 valori. In tal caso la sequenza è comunque di 15 valori mettendo 0 come valore di riempimento. Se rari possono in tal caso essere esclusi dal dataset. Nel dataset di testing le password potrebbero essere anche tra 10-15 caratteri. 
+
+Altra osservazione sulle features, le due coppie UD, DU e UU, DD dovrebbero essere tra loro poco correlate poichè misurano due distanze in qualche modo distinte (hold time e flight time). Se usate tutte insieme quindi potrebbero essere ridondanti. A voi la scelta. 
+
+
+2) Chiarimenti sulla struttura del dataset
+L'interpretazione data è corretta
+
+3) Chiarimenti sull’obiettivo della valutazione sperimentale
+Corretto. Per precisare, il testing andrebbe fatto sullo stesso dataset di training (rimuovendo una porzione di dati solo per questo). Abbiamo anche inviato un altro set di test più piccolo, un po' diverso, dove testare ulteriormente il modello. In questo caso va bene usare solo 5 esempi positivi e negativi per il testing su tutti gli utenti presenti. 
+
+
+In diversi casi, sia nel test set che ne training set, il valore è negativo, perché? Sarà una rilevazione errata?
+Il valore può essere negativo quando l'utente preme un tasto ancor prima che il tasto precedente venga rilasciato.
+
+Il training set è composto solo da casi con valore 1, quindi NON si tratta di un tentativo fraudolento. Può andare bene comunque?
+Visto che sul training set si possono anche usare i negativi (in caso si crei un'unica AI per tutti che generalizza il concetto di fraud detection) ti invio un altro dataset che contiene sia samples positivi che negativi (relativi alla stesso utente).
+
+Il test set invece ha la colonna già valorizzata però oltre ai valori 1 e -1 ci sono anche diversi 0.
+Ignorate gli 0, non sono marcati quindi non siamo certi se siano positivi o negativi. 
+
+--------------
+Chat wahtsapp
+
+[15:58, 24/10/2019] M: utlima domanda: per come ho capito io ci deveno essere anche i dati negativi in training? C'è un limite di casi negativi per utente da inserire nel training?
+[15:59, 24/10/2019] M: Sappiamo chi ha scritto la password? come info?
+[15:59, 24/10/2019] Alessio Mauro NEOEYED: intendi il training di una AI generalizzata, o training negativo per ogni utente?
+[16:00, 24/10/2019] M: utente
+[16:00, 24/10/2019] Alessio Mauro NEOEYED: nel caso utente no, non si possono usare i negativi perchè in produzione non si avreanno
+[16:02, 24/10/2019] M: questo?
+[16:02, 24/10/2019] Alessio Mauro NEOEYED: abbiamo usato un campione di utenti molto generico per la raccolta usando piattaforma come mturk che permettono a distanza di fare queste operazioni, quindi sappiamo solo che vengono un po' da tutto il mondo
+[16:02, 24/10/2019] Alessio Mauro NEOEYED: che tipo di informazione?
+[16:03, 24/10/2019] M: sappiamo chi ha scritto la password come utente
+[16:03, 24/10/2019] M: tipo matteo
+[16:04, 24/10/2019] Alessio Mauro NEOEYED: intendi anche sapere il nome dell'utente che ha digitato la password di un altro utente?
+[16:04, 24/10/2019] Alessio Mauro NEOEYED: in quel caso no
+[16:05, 24/10/2019] M: ok
+[16:05, 24/10/2019] M: perfetto ho capito
+[16:06, 24/10/2019] Alessio Mauro NEOEYED: ovviamente per tutti i positivi, l'utente è quello inserito nella colonna user_id
+[16:08, 24/10/2019] Alessio Mauro NEOEYED: non c'è un nome poichè abbiamo assegnato un id univoco. Ci potrebbero alcuni utenti che si sono registrati due volte e quindi hanno due user_id, ma sono rari e dovrebbe essere un problema visto che per ciascun id c'è una "password" diversa
+[16:09, 24/10/2019] Alessio Mauro NEOEYED: "non dovrebbe essere"
